@@ -1,0 +1,26 @@
+{
+  "name": "users-app",
+  "version": "1.0.0",
+  "description": "fiddling around with expressJS and react to create a non persistent users app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zulinlo/users-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zulinlo/users-app/issues"
+  },
+  "homepage": "https://github.com/Zulinlo/users-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^17.4.2"
+  },
+  "proxy": "http://localhost:8080"
+}
