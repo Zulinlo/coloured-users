@@ -19,8 +19,9 @@
   },
   "homepage": "https://github.com/Zulinlo/users-app#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "joi": "^17.4.2",
-    "uuidv4": "^6.2.12"
+    "uuid": "^8.3.2"
   }
 }

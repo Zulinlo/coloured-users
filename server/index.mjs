@@ -1,6 +1,8 @@
-import { uuid, fromString } from "uuidv4";
-import Joi from "joi";
 import express from "express";
+import Joi from "joi";
+import { v4 as uuidv4 } from "uuid";
+import bcrypt from "bcrypt";
+
 const app = express();
 
 app.use(express.json()); // middleware for reqs
@@ -42,10 +44,13 @@ app.post("/api/users", (req, res) => {
 
   const { username, password } = req.body;
 
-  const newUser = { id: uuid(), username, password, color: "000000" };
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
+
+  const newUser = { id: uuidv4(), username, password: hash, color: "000000" };
 
   if (users.find((user) => user.username === username))
-    res.status(400).send(`Username is already taken`);
+    return res.status(400).send(`Username is already taken`);
 
   users.push(newUser);
   res.json(newUser.id);
