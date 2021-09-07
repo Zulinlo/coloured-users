@@ -1,6 +1,6 @@
-const Joi = require("joi");
-
-const express = require("express");
+import { uuid, fromString } from "uuidv4";
+import Joi from "joi";
+import express from "express";
 const app = express();
 
 app.use(express.json()); // middleware for reqs
@@ -10,22 +10,30 @@ app.use(express.json()); // middleware for reqs
 const users = [{ id: 0, username: "Sam", password: "aasdo", color: "ffffff" }];
 
 app.get("/api/users", (req, res) => {
-  res.json(users);
+  res.json(
+    users.map((user) => ({
+      id: user.id,
+      username: user.username,
+      color: user.color,
+    }))
+  );
 });
 
 app.get("/api/users/:id", (req, res) => {
   const { id } = req.params;
-  const user = users.find((user) => user.id === parseInt(id));
+  const user = users.find((user) => user.id === id);
 
   if (!user) res.status(404).send(`User ${id} was not found.`);
 
   res.send({ id: user.id, username: user.username, color: user.color });
 });
 
+// create a user, requires username, password, repeat_password
 app.post("/api/users", (req, res) => {
   const schema = Joi.object({
-    name: Joi.string().min(3).required(),
-    password: Joi.string().min(8).required(),
+    username: Joi.string().alphanum().min(3).max(30).required(),
+    password: Joi.string().alphanum().min(8).max(30).required(),
+    repeat_password: Joi.any().equal(Joi.ref("password")).required(),
   });
 
   const validation = schema.validate(req.body);
@@ -34,7 +42,10 @@ app.post("/api/users", (req, res) => {
 
   const { username, password } = req.body;
 
-  const newUser = { id: users.length, username, password, color: "ffffff" };
+  const newUser = { id: uuid(), username, password, color: "000000" };
+
+  if (users.find((user) => user.username === username))
+    res.status(400).send(`Username is already taken`);
 
   users.push(newUser);
   res.json(newUser.id);
@@ -42,7 +53,7 @@ app.post("/api/users", (req, res) => {
 
 app.put("/api/users/:id", (req, res) => {
   const schema = Joi.object({
-    color: Joi.string().min(4).required(),
+    color: Joi.string().alphanum().min(3).max(6).required(),
   });
 
   const validation = schema.validate(req.body);
@@ -52,7 +63,7 @@ app.put("/api/users/:id", (req, res) => {
   const { id } = req.params;
   const { color } = req.body;
 
-  const user = users.find((user) => user.id === parseInt(id));
+  const user = users.find((user) => user.id === id);
 
   if (!user) return res.status(404).send(`User ${id} was not found.`);
 
@@ -63,7 +74,7 @@ app.put("/api/users/:id", (req, res) => {
 app.delete("/api/users/:id", (req, res) => {
   const { id } = req.params;
 
-  const user = users.find((user) => user.id === parseInt(id));
+  const user = users.find((user) => user.id === id);
 
   if (!user) return res.status(404).send(`User ${id} was not found.`);
 
