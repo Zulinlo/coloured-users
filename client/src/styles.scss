@@ -1,0 +1,31 @@
+/* Small devices: Phones */
+@media only screen and (min-width: 100px) {
+  html {
+    font-size: 75%;
+  }
+}
+
+/* Medium devices: Laptops, tablets */
+@media only screen and (min-width: 768px) {
+  html {
+    font-size: 100%;
+  }
+}
+
+/* Large devices: TVs, large monitors */
+@media only screen and (min-width: 1200px) {
+  html {
+    font-size: 125%;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #F0F4F3;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
