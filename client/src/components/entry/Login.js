@@ -5,7 +5,9 @@ const Login = () => {
     <div className="container">
       <div className="form">
         <h1>Welcome Back</h1>
-        fuk
+        <input type="text" />
+        <input type="password" />
+        <button>Sign in</button>
       </div>
     </div>
   );

@@ -1,19 +1,19 @@
 /* Small devices: Phones */
-@media only screen and (min-width: 100px) {
+@media screen and (min-width: 100px) {
   html {
     font-size: 75%;
   }
 }
 
 /* Medium devices: Laptops, tablets */
-@media only screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
   html {
     font-size: 100%;
   }
 }
 
 /* Large devices: TVs, large monitors */
-@media only screen and (min-width: 1200px) {
+@media screen and (min-width: 1400px) {
   html {
     font-size: 125%;
   }

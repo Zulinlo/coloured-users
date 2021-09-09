@@ -7,8 +7,8 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import Login from "./components/Login";
-import SignUp from "./components/SignUp";
+import Login from "./components/entry/Login";
+import SignUp from "./components/entry/SignUp";
 import Home from "./components/Home";
 
 import "./styles.scss";
