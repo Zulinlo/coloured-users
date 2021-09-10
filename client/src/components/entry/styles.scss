@@ -1,35 +1,75 @@
 .container {
+  width: 100%;
+  height: 100%;
+
+  .background-pentagon-blue {
+    position: absolute;
+    top: 10%;
+    width: 30vw;
+    box-sizing: content-box;
+    border-width: 50px 18px 0;
+    border-style: solid;
+    border-color: #70E5FF transparent;
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 0;
+      width: 0;
+      top: -85px;
+      left: -18px;
+      border-width: 0 45px 35px;
+      border-style: solid;
+      border-color: transparent transparent #70E5FF;
+    }
+  }
+
   .form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 78vw;
+    transform: translate(-50%, -50%);
+    width: 74vw;
     height: 65vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
     box-sizing: border-box;
     padding: 2rem;
-    transform: translate(-50%, -50%);
+    margin: 0 -10px;
     background-color: #fff;
     border-radius: 15px;
     box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
-    text-align: center;
 
     h1 {
-      font-size: 3rem;
-      margin: 2vh 0;
+      font-size: 3.6rem;
+      font-weight: 600;
+      letter-spacing: 2px;
     }
 
-    input {
-      display: inline-block;
-      margin-top: 8vh;
-      background-color: #F0F4F3;
-      outline: none;
-      border: none;
-      padding: 0.5rem;
+    .input-container {
+      position: relative;
       width: 25vw;
       height: 3vh;
+
+      input {
+        display: inline-block;
+        background-color: #F0F4F3;
+        outline: none;
+        border: none;
+        padding: 0.5rem 0 0.5rem 2.5rem;
+        width: 100%;
+        height: 100%;
+        font-size: 1.2rem;
+      }
+    }
+
+    .input-placeholder-img {
+      position: absolute;
+      font-size: 1rem;
+      top: 50%;
+      left: 0.5rem;
     }
 
     button {
@@ -39,8 +79,11 @@
       color: white;
       background-color: #2F2F2F;
       border-radius: 15px;
-      margin-top: 7vh;
       font-size: 1.2rem;
+    }
+
+    .link {
+      align-self: flex-end;
     }
   }
 }
