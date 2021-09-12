@@ -7,7 +7,7 @@ import "./styles.scss";
 const SignUp = () => {
   return (
     <section className="container">
-      <div className="background-pentagon-blue"></div>
+      <div className="background-square-blue"></div>
       <div className="background-triangle-red"></div>
       <div className="form">
         <h1>Register an Account</h1>

@@ -1,0 +1,52 @@
+.main-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+
+  .picker-container {
+    position: relative;
+    flex-grow: 3;
+
+    .picker {
+      width: 50%;
+      margin: 0 auto;
+      margin-top: 15%;
+    }
+
+    .picker-background-triangle {
+      position: absolute;
+      right: 10%;
+      top: 10%;
+      width: 0;
+      height: 0;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      transform: rotate(80deg);
+      z-index: -1;
+    }
+
+    .picker-background-square {
+      position: absolute;
+      left: 10%;
+      bottom: 12%;
+      width: 20%;
+      height: 20%;
+      transform: rotate(10deg);
+      z-index: -1;
+    }
+  }
+
+  .sidebar {
+    flex-grow: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    h1 {
+      color: white;
+      font-size: 2.5rem;
+    }
+  }
+}

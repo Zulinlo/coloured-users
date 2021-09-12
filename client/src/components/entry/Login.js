@@ -7,6 +7,8 @@ import "./styles.scss";
 const Login = () => {
   return (
     <section className="container">
+      <div className="background-square-blue"></div>
+      <div className="background-triangle-red"></div>
       <div className="form">
         <h1>Welcome Back</h1>
         <IconContext.Provider value={{ className: "input-placeholder-img" }}>
