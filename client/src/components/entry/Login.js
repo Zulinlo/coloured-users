@@ -9,7 +9,7 @@ const Login = () => {
     <section className="container">
       <div className="background-square-blue"></div>
       <div className="background-triangle-red"></div>
-      <div className="form">
+      <form className="form">
         <h1>Welcome Back</h1>
         <IconContext.Provider value={{ className: "input-placeholder-img" }}>
           <div className="input-container">
@@ -21,14 +21,14 @@ const Login = () => {
             <input type="password" placeholder="Password" />
           </div>
         </IconContext.Provider>
-        <button>Sign in</button>
+        <button type="submit">Sign in</button>
         <div className="link">
           or{" "}
           <Link to="/signup" style={{ textDecoration: "none" }}>
             Sign Up
           </Link>
         </div>
-      </div>
+      </form>
     </section>
   );
 };
