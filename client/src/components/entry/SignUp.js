@@ -1,26 +1,43 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 
 import "./styles.scss";
 
 const SignUp = () => {
+  const history = useHistory();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const newUser = { username, password, repeat_password: confirmPassword };
 
-    const response = await fetch("/api/users", {
+    fetch("/api/users", {
       method: "post",
-      data: JSON.stringify(newUser),
-    });
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
 
-    const body = await response.json();
-    console.error(body);
+        return res.json().then((err) => {
+          throw err;
+        });
+      })
+      .then((data) => {
+        localStorage.setItem("user", data);
+        history.push("/home");
+      })
+      .catch((err) => alert(err));
   };
 
   return (

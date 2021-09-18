@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ChromePicker } from "react-color";
+import { FaUserAlt } from "react-icons/fa";
 
 import "./styles.scss";
 
@@ -11,10 +12,9 @@ const Home = () => {
     setUserColor(e.hex);
   };
 
-  const fetchUsers = async () => {
-    const payload = await fetch("/api/users")
+  const fetchUsers = () => {
+    const payload = fetch("/api/users")
       .then((res) => {
-        console.log(res);
         if (!res.ok) throw Error(res.error);
 
         return res.json();
@@ -49,6 +49,14 @@ const Home = () => {
       </div>
       <div className="sidebar" style={{ backgroundColor: `${userColor}` }}>
         <h1>All Users</h1>
+        {users.map((user) => (
+          <article key={user.id} style={{ backgroundColor: `#${user.color}` }}>
+            <FaUserAlt style={{ marginRight: "1rem" }} />
+            {user.username.length > 11
+              ? user.username.substring(0, 11) + "..."
+              : user.username}
+          </article>
+        ))}
       </div>
     </section>
   );
