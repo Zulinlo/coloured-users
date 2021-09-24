@@ -1,26 +1,32 @@
-import { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+} from "react-router-dom";
 
-import "./App.css";
+import Login from "./components/entry/Login";
+import SignUp from "./components/entry/SignUp";
+import Home from "./components/Home";
+import LoginGuardRoute from "./LoginGuardRoute";
+
+import "./styles.scss";
 
 const App = () => {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    fetch("/api/users")
-      .then((res) => res.json())
-      .then((res) => setUsers(res))
-      .catch((err) => console.error(err));
-  }, []);
+  const history = useHistory();
 
   return (
-    <section className="users">
-      <h1>Users</h1>
-      <ul>
-        {users.map((user) => {
-          return <li key={user["id"]}>{user["name"]}</li>;
-        })}
-      </ul>
-    </section>
+    <Router>
+      <Switch>
+        <LoginGuardRoute path="/login" component={Login} />
+        <LoginGuardRoute path="/signup" component={SignUp} />
+        <Route path="/home" component={Home} />
+        <Route path="/">
+          <Redirect to="/login" />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 
