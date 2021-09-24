@@ -34,7 +34,7 @@ const SignUp = () => {
         });
       })
       .then((data) => {
-        localStorage.setItem("user", data);
+        localStorage.setItem("user", data.id);
         history.push("/home");
       })
       .catch((err) => alert(err));

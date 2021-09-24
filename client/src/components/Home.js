@@ -1,15 +1,36 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { ChromePicker } from "react-color";
 import { FaUserAlt } from "react-icons/fa";
 
 import "./styles.scss";
 
 const Home = () => {
-  const [userColor, setUserColor] = useState("#A8A8A8");
+  const history = useHistory();
+  const [userColor, setUserColor] = useState("");
   const [users, setUsers] = useState([]);
 
   const handleColorChange = (e) => {
     setUserColor(e.hex);
+
+    fetch(`/api/users/${localStorage.getItem("user")}`, {
+      method: "put",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ color: e.hex.slice(1) }),
+    })
+      .then((res) => {
+        if (!res.ok)
+          res.json().then((err) => {
+            throw err;
+          });
+      })
+      .catch((err) => alert(err));
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    history.push("/login");
   };
 
   const fetchUsers = () => {
@@ -25,7 +46,25 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchUsers().then((data) => setUsers(data));
+    fetchUsers().then((data) => {
+      setUsers(data.filter((user) => user.id !== localStorage.getItem("user")));
+    });
+
+    fetch(`/api/users/${localStorage.getItem("user")}`, {
+      method: "get",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        if (!res.ok)
+          res.json().then((err) => {
+            throw err;
+          });
+
+        return res.json();
+      })
+      .then((data) => setUserColor(`#${data.color}`))
+      .catch((err) => console.error(err));
   }, []);
 
   return (
@@ -49,14 +88,20 @@ const Home = () => {
       </div>
       <div className="sidebar" style={{ backgroundColor: `${userColor}` }}>
         <h1>All Users</h1>
-        {users.map((user) => (
-          <article key={user.id} style={{ backgroundColor: `#${user.color}` }}>
-            <FaUserAlt style={{ marginRight: "1rem" }} />
-            {user.username.length > 11
-              ? user.username.substring(0, 11) + "..."
-              : user.username}
-          </article>
-        ))}
+        <div className="sidebar-users">
+          {users.map((user) => (
+            <article
+              key={user.id}
+              style={{ backgroundColor: `#${user.color}` }}
+            >
+              <FaUserAlt style={{ marginRight: "1rem" }} />
+              {user.username.length > 11
+                ? user.username.substring(0, 11) + "..."
+                : user.username}
+            </article>
+          ))}
+        </div>
+        <button onClick={handleLogout}>Log Out </button>
       </div>
     </section>
   );

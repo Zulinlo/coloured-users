@@ -11,11 +11,11 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const user = { username, password };
 
-    const response = await fetch("/api/users/login", {
+    fetch("/api/users/login", {
       method: "post",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
@@ -35,8 +35,6 @@ const Login = () => {
         return localStorage.getItem("user");
       })
       .catch((err) => alert(err));
-
-    alert(response);
   };
 
   return (

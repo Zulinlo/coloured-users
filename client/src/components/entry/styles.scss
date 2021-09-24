@@ -83,6 +83,10 @@ body {
       background-color: #2F2F2F;
       border-radius: 15px;
       font-size: 1.2rem;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     .link {
